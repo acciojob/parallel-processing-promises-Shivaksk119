@@ -12,12 +12,8 @@ const loadImage = (url)=>{
 	return new Promise((resolve, reject)=>{
 		let img = new Image();
 		img.src = url;
-		if(img.onload()){
-			resolve(img)
-		}
-		else {
-			reject(url)
-		}
+		img.onload=()=>resolve(img);
+		img.oneror=()=>reject(url);
 	});
 }
 
@@ -27,7 +23,7 @@ const displayImages=(imagesUrls)=>{
 	Promise.all(imagePromises)
 		.then((loadedImages)=>{
 			loadedImages.forEach((loadedImg)=>{
-				document.getElementById("output").appendChild(loadImage)
+				document.getElementById("output").appendChild(loadedImg)
 			})
 		})
 		.catch((error)=>{
