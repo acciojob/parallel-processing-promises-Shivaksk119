@@ -21,8 +21,8 @@ const loadImage = (url)=>{
 	});
 }
 
-const displayImages=(images)=>{
-	let imagePromises = images.map(loadImage);
+const displayImages=(imagesUrls)=>{
+	let imagePromises = imagesUrls.map(image=>loadImage(image.url));
 
 	Promise.all(imagePromises)
 		.then((loadedImages)=>{
@@ -35,4 +35,4 @@ const displayImages=(images)=>{
 		})
 }
 
-btn.addEventListener('click', displayImages(images));
+btn.addEventListener('click', () => displayImages(images));
