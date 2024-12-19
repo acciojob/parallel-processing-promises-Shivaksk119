@@ -9,30 +9,30 @@ const images = [
 ];
 
 const loadImage = (url)=>{
-	return new Promise(resolve, reject){
+	return new Promise((resolve, reject)=>{
 		let img = new Image();
 		img.src = url;
 		if(img.onload()){
-			resolve(img);
+			resolve(img)
 		}
 		else {
-			reject(url);
+			reject(url)
 		}
-	}
+	});
 }
 
 const displayImages=(images)=>{
 	let imagePromises = images.map(loadImage);
 
-	Promise.All(imagePromises)
+	Promise.all(imagePromises)
 		.then((loadedImages)=>{
 			loadedImages.forEach((loadedImg)=>{
 				document.getElementById("output").appendChild(loadImage)
 			})
 		})
-		.catch(error){
+		.catch((error)=>{
 			console.error(`Failed to load image's URL: ${error}`)
-		}
+		})
 }
 
-btn.addEventListener('click', displayImages);
+btn.addEventListener('click', displayImages(images));
